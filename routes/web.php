@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/',[HomeController::class, 'index']);
 
 //Signup Routes
-Route::get('/signup',[SignupController::class, 'create'] );
+Route::get('/signup',[SignupController::class, 'create'])->name('signup');
 
 //Login Routes
-Route::get('/login', [LoginController::class, 'create']);
+Route::get('/login', [LoginController::class, 'create'])->name('login');
