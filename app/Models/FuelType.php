@@ -38,6 +38,8 @@ class FuelType extends Model
      *  const CREATED_AT = "createdDate";
      */
     public $timestamps = false;
+
+    protected $fillable = ['name'] ;
    
 
 
