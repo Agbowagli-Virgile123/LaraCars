@@ -26,4 +26,29 @@ class Car extends Model
         'description',
         'published_at'
     ];
+
+    public function features(){
+
+        return $this->hasOne(CarFeatures::class, 'car_id');
+
+    }
+
+    //Get the first or oldest car image created
+    public function primaryImage(){
+
+        return $this->hasOne(CarImage::class)->oldestOfMany('position');
+
+    }
+
+    public function images(){
+
+        return $this->hasMany(CarImage::class);
+    
+    }
+
+    public function carTypes(){
+
+        return $this->belongsTo(CarType::class, 'car_type_id');
+
+    }
 }
