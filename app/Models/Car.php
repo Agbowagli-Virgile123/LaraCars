@@ -51,4 +51,37 @@ class Car extends Model
         return $this->belongsTo(CarType::class, 'car_type_id');
 
     }
+
+    public function favouriteUsers()
+    {
+        return $this->belongsToMany(User::class, 'favourite_cars', 'car_id', 'user_id');
+        
+    }
+
+
+    public function fuelType()
+    {
+        return $this->belongsTo(FuelType::class);
+    }
+
+    public function maker()
+    {
+        return $this->belongsTo(Maker::class);
+    }
+
+    public function owner()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
+
+    public function model()
+    {
+        return $this->belongsTo(Model::class);
+    }
+
 }
