@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Database\Factories\MakerFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\Model;
 
 class Maker extends Model
 {
