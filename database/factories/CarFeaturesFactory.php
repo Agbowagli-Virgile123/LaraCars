@@ -23,7 +23,7 @@ class CarFeaturesFactory extends Factory
             'power_door_locks' => fake()->boolean(),
             'cruise_control' => fake()->boolean(),
             'bluetooth_connectivity' => fake()->boolean(),
-            'romote_start' => fake()->boolean(),
+            'remote_start' => fake()->boolean(),
             'gps_navigation' => fake()->boolean(),
             'heated_seats' => fake()->boolean(),
             'climate_control' => fake()->boolean(),
