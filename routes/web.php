@@ -18,5 +18,8 @@ Route::get('/login', [LoginController::class, 'create'])->name('login');
 //Search Routes
 Route::get('/car/search',[CarController::class, 'search'])->name('car.search'); 
 
+//Watchlist Route
+Route::get('/car/watchlist',[CarController::class, 'watchlist'])->name('car.watchlist'); 
+
 //Car Routes
 Route::resource('car', CarController::class);

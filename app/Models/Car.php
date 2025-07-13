@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Car extends Model
@@ -46,7 +47,7 @@ class Car extends Model
     
     }
 
-    public function carTypes(){
+    public function carType(){
 
         return $this->belongsTo(CarType::class, 'car_type_id');
 
@@ -82,6 +83,14 @@ class Car extends Model
     public function model()
     {
         return $this->belongsTo(Model::class);
+    }
+
+
+    //Carbon is a laravel parkage used to manipulate date
+
+    public function getCreateDate()
+    {
+        return ( new Carbon($this->created_at) )->format('Y-m-d');        
     }
 
 }
