@@ -6,7 +6,9 @@
 
     {{ $slot }}
 
-   
+    @push('scripts')
+        <script src="{{ asset('js/app.js') }}"></script>
+    @endpush  
 </x-base-layout>
 
 

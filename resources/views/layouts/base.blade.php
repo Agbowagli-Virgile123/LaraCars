@@ -39,7 +39,7 @@
         crossorigin="anonymous"
         referrerpolicy="no-referrer"
         ></script>
-        <script src="/js/app.js"></script>
+        @stack('scripts')
     </body>
 </html>
 
