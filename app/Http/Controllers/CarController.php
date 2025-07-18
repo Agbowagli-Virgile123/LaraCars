@@ -74,8 +74,13 @@ class CarController extends Controller
     }
 
     //Search Method
-    public function search()
+    public function search(Request $request)
     {
+
+        $makerId = $request->maker_id;
+
+        dd($makerId);
+
         $query = Car::where('published_at', '<', now())
                     ->with(['primaryImage', 'city', 'model.maker', 'carType','fueltype'])
                     ->orderBy('published_at', 'desc');
