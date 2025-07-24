@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Car;
 use App\Models\User;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -53,7 +54,7 @@ class CarController extends Controller
      */
     public function edit(Car $car)
     {
-        
+
         return view('car.edit');
     }
 
@@ -76,17 +77,22 @@ class CarController extends Controller
     //Search Method
     public function search(Request $request)
     {
+        $query = Car::with(['primaryImage', 'city', 'model.maker', 'carType','fueltype'])
+                        ->where('published_at', '<', now());
 
-        $makerId = $request->maker_id;
+        //Apply or the filtering if the value is provided
+        $query->when($request->maker_id, fn($builder, $maker) => $builder->where('maker_id', $maker));
+        $query->when($request->model_id, fn($builder, $model) => $builder->where('model_id', $model));
+        $query->when($request->state_id, fn($builder, $state) => $builder->where('state_id', $state));
+        $query->when($request->city_id, fn($builder, $city) => $builder->where('city_id', $city));
+        $query->when($request->car_type_id, fn($builder, $carType) => $builder->where('car_type_id', $carType));
+        $query->when($request->fuel_type_id, fn($builder, $fuelType) => $builder->where('fuel_type_id', $fuelType));
 
-        dd($makerId);
+        $query->when($request->filled(['year_from', 'year_to']) , fn($builder) => $builder->whereBetween('year', [$request->year_from, $request->year_to]));
 
-        $query = Car::where('published_at', '<', now())
-                    ->with(['primaryImage', 'city', 'model.maker', 'carType','fueltype'])
-                    ->orderBy('published_at', 'desc');
+        $query->when( $request->filled(['price_from', 'price_to']), fn($builder) => $builder->whereBetween('price', [$request->price_from, $request->price_to]));
 
-    
-        $cars = $query->paginate(15);
+        $cars = $query->orderBy('published_at', 'desc')->paginate(15);
 
         return view('car.search', ['cars' => $cars]);
     }

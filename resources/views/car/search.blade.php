@@ -16,11 +16,14 @@
                 <h2>Define your search criteria</h2>
             </div>
 
-            <select class="sort-dropdown">
-                <option value="">Order By</option>
-                <option value="price">Price Asc</option>
-                <option value="-price">Price Desc</option>
-            </select>
+            <form action="{{ route('car.search') }}" method="GET">
+                <select name="sort" class="sort-dropdown">
+                    <option value="">Order By</option>
+                    <option value="price">Price Asc</option>
+                    <option value="-price">Price Desc</option>
+                </select>
+            </form>
+            
             </div>
             <div class="search-car-results-wrapper">
             <div class="search-cars-sidebar">
@@ -38,7 +41,7 @@
 
                 <!-- Find a car form -->
                 <section class="find-a-car">
-                <form action="/s.html" method="GET" class="find-a-car-form card flex p-medium">
+                <form action="{{ route('car.search') }}" method="GET" class="find-a-car-form card flex p-medium">
                     <div class="find-a-car-inputs">
                     <div class="form-group">
                         <label class="mb-medium">Maker</label>
@@ -46,8 +49,8 @@
                     </div>
                     <div class="form-group">
                         <label class="mb-medium">Model</label>
-                       <x-model-dropdown 
-                            :selected="request('model_id')" 
+                       <x-model-dropdown
+                            :selected="request('model_id')"
                             :maker-id="request('maker_id')" />
                     </div>
                     <div class="form-group">
@@ -96,7 +99,7 @@
                     </div>
                     <div class="form-group">
                         <label class="mb-medium">City</label>
-                        <x-city-dropdown 
+                        <x-city-dropdown
                             :selected="request('city_id')"
                             :state-id="request('state_id')" />
                     </div>
