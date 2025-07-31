@@ -50,7 +50,7 @@
               </div>
             </div>
             <div>
-              <button type="button" class="btn btn-find-a-car-reset">
+              <button type="button" class="btn btn-find-a-car-reset" onclick="resetFilters()" >
                 Reset
               </button>
               <button class="btn btn-primary btn-find-a-car-submit">

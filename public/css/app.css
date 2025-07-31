@@ -303,7 +303,8 @@ select:disabled {
   border-color: var(--input-border-error-color);
 }
 .form-group .error-message {
-  display: none;
+  display: block;
+  color: red;
 }
 
 .form-group.has-error .error-message {

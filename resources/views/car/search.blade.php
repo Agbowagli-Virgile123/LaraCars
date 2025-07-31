@@ -21,6 +21,8 @@
                     <option value="">Order By</option>
                     <option value="price">Price Asc</option>
                     <option value="-price">Price Desc</option>
+                    <option value="year">Year Asc</option>
+                    <option value="-year">Year Desc</option>
                 </select>
             </form>
             

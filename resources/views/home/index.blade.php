@@ -101,7 +101,6 @@
                 
                 
                 @foreach ($cars as $car)
-                
                     <x-car-item :$car /> 
                @endforeach
 

@@ -1,41 +1,46 @@
 <x-app-layout>
 
     <main>
+
+        @if (session('msg'))
+            <p style="color: green; font-weigth: 700">{{session('msg')}}</p>
+        @endif
+
       <div class="container-small">
         <h1 class="car-details-page-title">Add new car</h1>
         <form
-          action=""
+          action="{{ route('car.store') }}"
           method="POST"
           enctype="multipart/form-data"
           class="card add-new-car-form"
         >
           <div class="form-content">
             <div class="form-details">
+              @csrf
               <div class="row">
                 <div class="col">
                   <div class="form-group">
                     <label>Maker</label>
-                    <select>
-                      <option value="">Maker</option>
-                      <option value="bmw">BMW</option>
-                      <option value="lexus">Lexus</option>
-                      <option value="mercedes">Mercedes</option>
-                    </select>
-                    <p class="error-message">This field is required</p>
+                    <x-maker-dropdown :selected="request('maker_id')" />
+                    @error('maker_id')
+                      <p class="error-message">{{$message}}</p>
+                    @enderror
+
                   </div>
                 </div>
                 <div class="col">
                   <div class="form-group">
                     <label>Model</label>
-                    <select>
-                      <option value="">Model</option>
-                    </select>
+                    <x-model-dropdown :maker-id="request('maker_id')" :selected="request('model_id')" />
+                    @error('model_id')
+                      <p class="error-message">{{$message}}</p>
+                    @enderror
                   </div>
                 </div>
                 <div class="col">
                   <div class="form-group">
                     <label>Year</label>
-                    <select>
+                    <select name="year" >
                       <option value="">Year</option>
                       <option value="2024">2024</option>
                       <option value="2023">2023</option>
@@ -73,98 +78,76 @@
                       <option value="1991">1991</option>
                       <option value="1990">1990</option>
                     </select>
+                    @error('year')
+                      <p class="error-message">{{$message}}</p>
+                    @enderror
                   </div>
                 </div>
               </div>
               <div class="form-group">
                 <label>Car Type</label>
                 <div class="row">
-                  <div class="col">
-                    <label class="inline-radio">
-                      <input type="radio" name="car_type" value="sedan" />
-                      Sedan
-                    </label>
-                  </div>
-
-                  <div class="col">
-                    <label class="inline-radio">
-                      <input type="radio" name="car_type" value="hatchback" />
-                      Hatchback
-                    </label>
-                  </div>
-
-                  <div class="col">
-                    <label class="inline-radio">
-                      <input type="radio" name="car_type" value="suv" />
-                      SUV (Sport Utility Vehicle)
-                    </label>
-                  </div>
+                  <x-car-type-radio-btn />
+                  @error('car_type_id')
+                      <p class="error-message">{{$message}}</p>
+                    @enderror
                 </div>
               </div>
               <div class="row">
                 <div class="col">
                   <div class="form-group">
                     <label>Price</label>
-                    <input type="number" placeholder="Price" />
+                    <input type="number" name="price" value="{{old('price')}}" placeholder="Price" />
+                    @error('price')
+                      <p class="error-message">{{$message}}</p>
+                    @enderror
                   </div>
                 </div>
                 <div class="col">
                   <div class="form-group">
                     <label>Vin Code</label>
-                    <input placeholder="Vin Code" />
+                    <input type="text" name="vin" value="{{ old('vin') }}" placeholder="Vin Code" />
+                    @error('vin')
+                      <p class="error-message">{{$message}}</p>
+                    @enderror
                   </div>
                 </div>
                 <div class="col">
                   <div class="form-group">
                     <label>Mileage (ml)</label>
-                    <input placeholder="Mileage" />
+                    <input type="text" name="mileage" value="{{old('mileage')}}" placeholder="Mileage" />
+                    @error('mileage')
+                      <p class="error-message">{{$message}}</p>
+                    @enderror
                   </div>
                 </div>
               </div>
               <div class="form-group">
                 <label>Fuel Type</label>
                 <div class="row">
-                  <div class="col">
-                    <label class="inline-radio">
-                      <input type="radio" name="fuel_type" value="gasoline" />
-                      Gasoline
-                    </label>
-                  </div>
-                  <div class="col">
-                    <label class="inline-radio">
-                      <input type="radio" name="fuel_type" value="diesel" />
-                      Diesel
-                    </label>
-                  </div>
-                  <div class="col">
-                    <label class="inline-radio">
-                      <input type="radio" name="fuel_type" value="electric" />
-                      Electric
-                    </label>
-                  </div>
-                  <div class="col">
-                    <label class="inline-radio">
-                      <input type="radio" name="fuel_type" value="hybrid" />
-                      Hybrid
-                    </label>
-                  </div>
+                 <x-fuel-type-radio-btn />
+                 @error('fuel_type_id')
+                      <p class="error-message">{{$message}}</p>
+                    @enderror
                 </div>
               </div>
               <div class="row">
                 <div class="col">
                   <div class="form-group">
                     <label>State/Region</label>
-                    <select>
-                      <option value="">State/Region</option>
-                    </select>
+                    <x-state-dropdown :selected="request('state_id')" />
+                    @error('state_id')
+                      <p class="error-message">{{$message}}</p>
+                    @enderror
                   </div>
                 </div>
                 <div class="col">
                   <div class="form-group">
                     <label>City</label>
-                    <select>
-                      <option value="">City</option>
-                    </select>
+                    <x-city-dropdown :selected="request('city_id')" :state-id="request('state_id')" />
+                    @error('city_id')
+                      <p class="error-message">{{$message}}</p>
+                    @enderror
                   </div>
                 </div>
               </div>
@@ -172,13 +155,19 @@
                 <div class="col">
                   <div class="form-group">
                     <label>Address</label>
-                    <input placeholder="Address" />
+                    <input type="text" name="address"  value="{{old('address')}}" placeholder="Address" />
+                    @error('address')
+                      <p class="error-message">{{$message}}</p>
+                    @enderror
                   </div>
                 </div>
                 <div class="col">
                   <div class="form-group">
                     <label>Phone</label>
-                    <input placeholder="Phone" />
+                    <input type="text" name="phone" value="{{old('phone')}}" placeholder="Phone" />
+                    @error('phone')
+                      <p class="error-message">{{$message}}</p>
+                    @enderror
                   </div>
                 </div>
               </div>
@@ -266,11 +255,14 @@
               </div>
               <div class="form-group">
                 <label>Detailed Description</label>
-                <textarea rows="10"></textarea>
-              </div>
+                <textarea rows="10" name="description" > {{old('description')}} </textarea>
+                @error('description')
+                    <p class="error-message">{{$message}}</p>
+                @enderror
+              </div>    
               <div class="form-group">
                 <label class="checkbox">
-                  <input type="checkbox" name="published" />
+                  <input type="checkbox" name="published_at" value="1" />
                   Published
                 </label>
               </div>
@@ -293,7 +285,10 @@
                     />
                   </svg>
                 </div>
-                <input id="carFormImageUpload" type="file" multiple />
+                <input  type="file" name="img"/>
+                @error('img')
+                    <p class="error-message" style="color: red">{{$message}}</p>
+                @enderror
               </div>
               <div id="imagePreviews" class="car-form-images"></div>
             </div>

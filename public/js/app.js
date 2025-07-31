@@ -210,6 +210,7 @@ document.addEventListener("DOMContentLoaded", function () {
       url.searchParams.set('sort', ev.target.value);
       window.location.href = url.toString();
     });
+
   }
 
   initSlider();
@@ -230,4 +231,6 @@ document.addEventListener("DOMContentLoaded", function () {
     origin: "bottom",
     distance: "50%",
   });
+
+
 });
